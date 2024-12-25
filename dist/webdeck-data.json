@@ -1,0 +1,19 @@
+{
+  "buttons": [
+    {
+      "name": "szigma",
+      "action": "command",
+      "params": {
+        "command": "szigma"
+      }
+    },
+    {
+      "name": "Tailscale",
+      "action": "command",
+      "params": {
+        "command": "open -a Tailscale"
+      }
+    }
+  ],
+  "icons": {}
+}

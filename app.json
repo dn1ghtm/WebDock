@@ -1,0 +1,25 @@
+[
+  {
+    "name": "Play/Pause",
+    "action": "media",
+    "params": {
+      "action": "play_pause"
+    }
+  },
+  {
+    "name": "Tailscale",
+    "action": "command",
+    "params": {
+      "command": "open -a Tailscale"
+    },
+    "imageUrl": null
+  },
+  {
+    "name": "asd",
+    "action": "keystroke",
+    "params": {
+      "key": "END"
+    },
+    "imageUrl": null
+  }
+]

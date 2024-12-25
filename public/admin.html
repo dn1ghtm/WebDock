@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebDeck - Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .deck-button {
+            width: 100%;
+            height: 100px;
+            background-color: #3a3a3a;
+            border: none;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            padding: 10px;
+            position: relative;
+        }
+
+        .button-image {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+
+        .deck-button i {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .deck-button:hover {
+            background-color: #3c3c3c;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ff4444;
+            border: none;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+        }
+
+        .deck-button:hover .delete-btn {
+            display: block;
+        }
+
+        .add-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .add-button:hover {
+            background-color: #45a049;
+        }
+
+        .user-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: #666;
+            text-decoration: none;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WebDeck Admin Panel</h1>
+        <div class="button-grid" id="buttonGrid">
+            <!-- Buttons will be added here dynamically -->
+        </div>
+        <button class="add-button" onclick="addNewButton()">Add New Button</button>
+    </div>
+    <a href="/" class="user-link">User Panel</a>
+    <script src="/js/admin.js"></script>
+</body>
+</html> 

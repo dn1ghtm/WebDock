@@ -1,0 +1,27 @@
+{
+  "name": "webdeck",
+  "version": "1.0.0",
+  "description": "Web-based Stream Deck alternative",
+  "main": "start-server.js",
+  "bin": "start-server.js",
+  "scripts": {
+    "start": "node start-server.js",
+    "build": "pkg .",
+    "build:mac": "pkg . --targets node18-macos-x64 --output dist/webdeck-macos",
+    "build:win": "pkg . --targets node18-win-x64 --output dist/webdeck-win.exe",
+    "build:linux": "pkg . --targets node18-linux-x64 --output dist/webdeck-linux"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
+  },
+  "pkg": {
+    "assets": [
+      "node_modules/**/*",
+      "actions.js"
+    ]
+  }
+} 
