@@ -1,19 +1,72 @@
 const { exec } = require('child_process');
 const path = require('path');
+const os = require('os');
 
-function executeAction(actionType, params) {
-    switch (actionType) {
-        case 'command':
-            return executeCommand(params.command);
-        case 'media':
-            return controlMedia(params.action);
-        case 'application':
-            return openApplication(params.path);
-        case 'keystroke':
-            return sendKeystroke(params.key);
-        default:
-            throw new Error('Invalid action type');
-    }
+function executeAction(action, params) {
+    return new Promise((resolve, reject) => {
+        switch (action) {
+            case 'application':
+                const platform = os.platform();
+                let command;
+
+                switch (platform) {
+                    case 'win32':
+                        command = `start "" "${params.path}"`;
+                        break;
+                    case 'darwin': // macOS
+                        command = `open "${params.path}"`;
+                        break;
+                    case 'linux':
+                        command = `xdg-open "${params.path}"`;
+                        break;
+                    default:
+                        reject(new Error(`Unsupported platform: ${platform}`));
+                        return;
+                }
+
+                exec(command, (error) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve({ status: 'success' });
+                    }
+                });
+                break;
+
+            case 'command':
+                if (!params.command) {
+                    reject(new Error('No command specified'));
+                    return;
+                }
+                executeCommand(params.command)
+                    .then(resolve)
+                    .catch(reject);
+                break;
+
+            case 'media':
+                if (!params.action) {
+                    reject(new Error('No media action specified'));
+                    return;
+                }
+                controlMedia(params.action)
+                    .then(resolve)
+                    .catch(reject);
+                break;
+
+            case 'keystroke':
+                if (!params.key) {
+                    reject(new Error('No key specified'));
+                    return;
+                }
+                sendKeystroke(params.key)
+                    .then(resolve)
+                    .catch(reject);
+                break;
+
+            default:
+                reject(new Error(`Unknown action: ${action}`));
+        }
+    });
 }
 
 function executeCommand(command) {
@@ -56,22 +109,6 @@ function controlMedia(action) {
     }
 
     return executeCommand(command);
-}
-
-function openApplication(appPath) {
-    return new Promise((resolve, reject) => {
-        const command = process.platform === 'win32' ? 
-            `start "" "${appPath}"` : 
-            `open "${appPath}"`;
-            
-        exec(command, (error) => {
-            if (error) {
-                reject(error);
-                return;
-            }
-            resolve({ status: 'success' });
-        });
-    });
 }
 
 function sendKeystroke(key) {
